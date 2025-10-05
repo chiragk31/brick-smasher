@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/brick-smasher/static/css/main.156854f2.css",
+    "main.js": "/brick-smasher/static/js/main.3978a00c.js",
+    "index.html": "/brick-smasher/index.html",
+    "main.156854f2.css.map": "/brick-smasher/static/css/main.156854f2.css.map",
+    "main.3978a00c.js.map": "/brick-smasher/static/js/main.3978a00c.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.156854f2.css",
+    "static/js/main.3978a00c.js"
+  ]
+}
