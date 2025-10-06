@@ -4,6 +4,7 @@ import GameCanvas from './components/GameCanvas';
 import GameOver from './components/GameOver';
 import LevelComplete from './components/LevelComplete';
 import LandingPage from './components/LandingPage';
+import MobileControls from './components/MobileControls';
 
 function App() {
     // Canvas dimensions (keep UI fully visible without scrolling)
@@ -34,6 +35,7 @@ function App() {
     });
 
     const [showLanding, setShowLanding] = useState(true);
+    const [mobileKeys, setMobileKeys] = useState({ left: false, right: false });
 
     const [levelComplete, setLevelComplete] = useState(false);
     const canvasRef = useRef(null);
@@ -96,10 +98,14 @@ function App() {
         setGameObjects(prev => {
             let newX = prev.paddle.x;
 
-            if (keysRef.current.left && prev.paddle.x > 0) {
+            // Check both keyboard and mobile controls
+            const leftPressed = keysRef.current.left || mobileKeys.left;
+            const rightPressed = keysRef.current.right || mobileKeys.right;
+
+            if (leftPressed && prev.paddle.x > 0) {
                 newX = prev.paddle.x - prev.paddle.speed;
             }
-            if (keysRef.current.right && prev.paddle.x < CANVAS_WIDTH - prev.paddle.width) {
+            if (rightPressed && prev.paddle.x < CANVAS_WIDTH - prev.paddle.width) {
                 newX = prev.paddle.x + prev.paddle.speed;
             }
 
@@ -115,7 +121,7 @@ function App() {
                 ball: { ...prev.ball, x: ballX }
             };
         });
-    }, [gameState.gameRunning]);
+    }, [gameState.gameRunning, mobileKeys]);
 
     // Update ball position
     const updateBall = useCallback(() => {
@@ -274,8 +280,26 @@ function App() {
         });
         setGameOver({ show: false, message: '', finalTime: 0 });
         setLevelComplete(false);
+        setMobileKeys({ left: false, right: false });
         initGame();
     }, [initGame]);
+
+    // Mobile control handlers
+    const handleMobileLeft = useCallback((pressed) => {
+        setMobileKeys(prev => ({ ...prev, left: pressed }));
+    }, []);
+
+    const handleMobileRight = useCallback((pressed) => {
+        setMobileKeys(prev => ({ ...prev, right: pressed }));
+    }, []);
+
+    const handleMobileLaunch = useCallback(() => {
+        if (gameOver.show) {
+            restartGame();
+        } else {
+            startBall();
+        }
+    }, [gameOver.show, restartGame, startBall]);
 
     // Game loop
     const gameLoop = useCallback(() => {
@@ -395,11 +419,19 @@ function App() {
                     )}
                 </div>
 
-                <div className="mt-4 sm:mt-6 text-center text-white text-sm sm:text-base">
+                <div className="mt-4 sm:mt-6 text-center text-white text-sm sm:text-base pb-20 sm:pb-0">
                     <p className="mb-1 sm:mb-2">Use <strong>A</strong> and <strong>D</strong> keys to move the paddle</p>
                     <p className="mb-1 sm:mb-2">Press <strong>SPACE</strong> to start the game</p>
                     <p>Press <strong>SPACE</strong> to restart after game over</p>
                 </div>
+
+                {/* Mobile Controls - Only visible on mobile */}
+                <MobileControls
+                    onLeft={handleMobileLeft}
+                    onRight={handleMobileRight}
+                    onLaunch={handleMobileLaunch}
+                    gameRunning={gameState.gameRunning}
+                />
             </div>
         </div>
     );
