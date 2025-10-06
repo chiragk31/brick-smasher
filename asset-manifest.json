@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/brick-smasher/static/css/main.156854f2.css",
-    "main.js": "/brick-smasher/static/js/main.3978a00c.js",
+    "main.css": "/brick-smasher/static/css/main.6ef79d3a.css",
+    "main.js": "/brick-smasher/static/js/main.8c291b4a.js",
     "index.html": "/brick-smasher/index.html",
-    "main.156854f2.css.map": "/brick-smasher/static/css/main.156854f2.css.map",
-    "main.3978a00c.js.map": "/brick-smasher/static/js/main.3978a00c.js.map"
+    "main.6ef79d3a.css.map": "/brick-smasher/static/css/main.6ef79d3a.css.map",
+    "main.8c291b4a.js.map": "/brick-smasher/static/js/main.8c291b4a.js.map"
   },
   "entrypoints": [
-    "static/css/main.156854f2.css",
-    "static/js/main.3978a00c.js"
+    "static/css/main.6ef79d3a.css",
+    "static/js/main.8c291b4a.js"
   ]
 }
