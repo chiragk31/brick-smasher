@@ -1,0 +1,41 @@
+// Function to add two numbers
+function addNumbers(a, b) {
+    return a + b;
+}
+
+// Calling the function
+let result = addNumbers(5, 3);
+
+// Output
+console.log("Sum is:", result);
+
+
+
+// Iterative Binary Search
+function binarySearch(arr, target) {
+    let left = 0;
+    let right = arr.length - 1;
+
+    while (left <= right) {
+        let mid = Math.floor((left + right) / 2);
+
+        if (arr[mid] === target) {
+            return mid; // found → return index
+        } 
+        else if (arr[mid] < target) {
+            left = mid + 1; // search right half
+        } 
+        else {
+            right = mid - 1; // search left half
+        }
+    }
+
+    return -1; // not found
+}
+
+// Example usage
+let arr = [1, 3, 5, 7, 9, 11];
+let target = 7;
+
+let result = binarySearch(arr, target);
+console.log("Index:", result);
